@@ -6,7 +6,7 @@ import org.springframework.data.mongodb.repository.MongoRepository;
 
 
 public interface DenunciaRepository extends MongoRepository<Denuncia, String> {
-    List<Denuncia> findByIdentifier(String identifier);
+    Denuncia findByIdentifier(String identifier);
     List<Denuncia> findByDataEnchente(String dataEnchente);
     List<Denuncia> findByDataDenuncia(String dataDenuncia);
 }

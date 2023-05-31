@@ -1,7 +1,5 @@
 package com.example.app.denuncia;
 
-
-import java.beans.Transient;
 import java.util.UUID;
 
 import org.springframework.data.annotation.Id;
@@ -21,13 +19,8 @@ import lombok.*;
 @Document(collection = "denuncias")
 public class Denuncia {
 
-    // @Transient
-    // public static final String SEQUENCE_NAME = "denuncias_sequence";
 
-    // precia ver como autogerar o ID como acontece no JPA
     @Id
-    private Integer id;
-
     private String identifier;
     
     private String nome;
@@ -51,7 +44,7 @@ public class Denuncia {
     public static Denuncia covDenuncia (DenunciaSaveDTO d){
         // as partes com NULL precisam ser preenchidas
 
-        return new Denuncia(null, UUID.randomUUID().toString(),d.getNome(),d.getDataEnchente(),d.getLocal(),d.getRelato(),null,null,null);
+        return new Denuncia(UUID.randomUUID().toString(),d.getNome(),d.getDataEnchente(),d.getLocal(),d.getRelato(),null,null,null);
 
     }
 

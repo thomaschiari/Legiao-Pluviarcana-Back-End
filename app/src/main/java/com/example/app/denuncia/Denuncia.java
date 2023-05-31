@@ -12,7 +12,7 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 
-@Document(collection = "tutorials")
+@Document(collection = "denuncias")
 public class Denuncia {
 
     @Id
@@ -33,4 +33,5 @@ public class Denuncia {
     private Double previsao;
 
     private String dataDenuncia;
+    
 }

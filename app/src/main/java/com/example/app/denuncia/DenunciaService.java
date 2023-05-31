@@ -28,11 +28,11 @@ public class DenunciaService {
         Denuncia denuncia = Denuncia.covDenuncia(d);
 
         // TODO fazer as chamadas de API aqui e setar as partes da denuncia
-        ResponseEntity<GameReturnDTO> response =
-                restTemplate.getForEntity("http://localhost:8080/game/" + identifier, GameReturnDTO.class);
-        if (response.getStatusCode().is2xxSuccessful()) {
-            return response.getBody();
-        }
+        // ResponseEntity<GameReturnDTO> response =
+        //         restTemplate.getForEntity("http://localhost:8080/game/" + identifier, GameReturnDTO.class);
+        // if (response.getStatusCode().is2xxSuccessful()) {
+        //     return response.getBody();
+        // }
 
 
         // ------------------------------

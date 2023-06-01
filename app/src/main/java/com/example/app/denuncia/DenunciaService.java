@@ -1,5 +1,6 @@
 package com.example.app.denuncia;
 
+import com.example.app.clima.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,18 +28,19 @@ public class DenunciaService {
 
         Denuncia denuncia = Denuncia.covDenuncia(d);
 
-        // TODO fazer as chamadas de API aqui e setar as partes da denuncia
-        // ResponseEntity<GameReturnDTO> response =
-        //         restTemplate.getForEntity("http://localhost:8080/game/" + identifier, GameReturnDTO.class);
-        // if (response.getStatusCode().is2xxSuccessful()) {
-        //     return response.getBody();
-        // }
+        String lat = "-23.617111";
+        String lon = "-46.590950";
+        String date = denuncia.getDataEnchente();
+        String url =  "https://api.open-meteo.com/v1/forecast?latitude=" + lat + "&longitude=" + lon + "&hourly=precipitation&daily=precipitation_sum,precipitation_probability_mean&timezone=America/Sao_Paulo&current_weather=true&start_date=" + date + "&end_date=" + date;
 
+        ResponseEntity<Clima> response = restTemplate.getForEntity(url, Clima.class);
+        if (response.getStatusCode().is2xxSuccessful()) {
+            Clima c = response.getBody();
+            denuncia.setMmChovido(c.getDaily().getPrecipitation_sum().get(0));   
+            denuncia.setPrevisao(c.getDaily().getPrecipitation_probability_mean().get(0));
+        }
 
-        // ------------------------------
         denunciaRepository.save(denuncia);
-
-
         return Denuncia.covDenunciaReturnDTO(denuncia);
     }
 
@@ -46,8 +48,4 @@ public class DenunciaService {
     public DenunciaReturnDTO getDenunciaReturnDTO(String identifier){
         return Denuncia.covDenunciaReturnDTO(denunciaRepository.findByIdentifier(identifier));
     }
-
-
-
-
 }

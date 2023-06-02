@@ -6,10 +6,12 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 import com.example.app.denuncia.DTO.*;
 
+@Service
 public class DenunciaService {
     
     @Autowired
@@ -23,7 +25,7 @@ public class DenunciaService {
         return denuncias;
     }
 
-    
+
     public DenunciaReturnDTO saveDenuncia(DenunciaSaveDTO d){
         RestTemplate restTemplate = new RestTemplate();
 
@@ -51,10 +53,11 @@ public class DenunciaService {
     }
 
 
-    public DenunciaReturnDTO deleteDenuncia(String identifier){
+    public boolean deleteDenuncia(String identifier){
         Denuncia d = denunciaRepository.findByIdentifier(identifier);
+        if(d==null) return false;
         denunciaRepository.delete(d);
-        return Denuncia.covDenunciaReturnDTO(d);
+        return true;
     }
 
 }

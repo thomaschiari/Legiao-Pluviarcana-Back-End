@@ -26,6 +26,7 @@ public class DenunciaService {
         return denuncias;
     }
 
+    
     public DenunciaReturnDTO saveDenuncia(DenunciaSaveDTO d){
         RestTemplate restTemplate = new RestTemplate();
         Calendar c = Calendar.getInstance();
@@ -47,7 +48,16 @@ public class DenunciaService {
         return Denuncia.covDenunciaReturnDTO(denuncia);
     }
 
-    public DenunciaReturnDTO getDenunciaReturnDTO(String identifier){
+
+    public DenunciaReturnDTO getDenuncia(String identifier){
         return Denuncia.covDenunciaReturnDTO(denunciaRepository.findByIdentifier(identifier));
     }
+
+
+    public DenunciaReturnDTO deleteDenuncia(String identifier){
+        Denuncia d = denunciaRepository.findByIdentifier(identifier);
+        denunciaRepository.delete(d);
+        return Denuncia.covDenunciaReturnDTO(d);
+    }
+
 }

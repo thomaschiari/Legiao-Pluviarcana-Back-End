@@ -44,6 +44,6 @@ public class Denuncia {
     }
 
     public static Denuncia covDenuncia (DenunciaSaveDTO d){
-        return new Denuncia(d.getNome(),d.getDataEnchente(),d.getLocal(),d.getRelato(),d.getImageURL());
+        return new Denuncia(d.getNome(),d.getDataEnchente(),d.getLocal(),d.getRelato(),d.getBase64Image());
     }
 }

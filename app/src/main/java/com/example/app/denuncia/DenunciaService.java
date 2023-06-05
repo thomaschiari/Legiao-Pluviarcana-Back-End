@@ -2,6 +2,7 @@ package com.example.app.denuncia;
 
 import com.example.app.clima.*;
 import java.util.ArrayList;
+import java.util.Base64;
 import java.util.Calendar;
 import java.util.List;
 
@@ -25,34 +26,10 @@ public class DenunciaService {
         }
         return denuncias;
     }
-
-
-    public DenunciaReturnDTO saveDenuncia(DenunciaSaveDTO d){
-        RestTemplate restTemplate = new RestTemplate();
-        Calendar c = Calendar.getInstance();
-        Denuncia denuncia = Denuncia.covDenuncia(d);
-
-        String lat = "-23.617111";
-        String lon = "-46.590950";
-        String date = denuncia.getDataEnchente();
-        String url =  "https://api.open-meteo.com/v1/forecast?latitude=" + lat + "&longitude=" + lon + "&hourly=precipitation&daily=precipitation_sum,precipitation_probability_mean&timezone=America/Sao_Paulo&current_weather=true&start_date=" + date + "&end_date=" + date;
-
-        ResponseEntity<Clima> response = restTemplate.getForEntity(url, Clima.class);
-        if (response.getStatusCode().is2xxSuccessful()) {
-            Clima clima = response.getBody();
-            denuncia.setMmChovido(clima.getDaily().getPrecipitation_sum().get(0));   
-            denuncia.setPrevisao(clima.getDaily().getPrecipitation_probability_mean().get(0));
-        }
-        denuncia.setDataDenuncia(c.get(Calendar.YEAR)+"-"+c.get(Calendar.MONTH)+"-"+c.get(Calendar.DAY_OF_MONTH));
-        denunciaRepository.save(denuncia);
-        return Denuncia.covDenunciaReturnDTO(denuncia);
-    }
-
-
+    
     public DenunciaReturnDTO getDenuncia(Integer identifier){
         return Denuncia.covDenunciaReturnDTO(denunciaRepository.findByIdentifier(identifier));
     }
-
 
     public boolean deleteDenuncia(Integer identifier){
         Denuncia d = denunciaRepository.findByIdentifier(identifier);
@@ -60,5 +37,39 @@ public class DenunciaService {
         denunciaRepository.delete(d);
         return true;
     }
-
+    
+    public DenunciaReturnDTO saveDenuncia(DenunciaSaveDTO d){
+        Calendar c = Calendar.getInstance();
+        Denuncia denuncia = Denuncia.covDenuncia(d);
+    
+        Clima clima = getWeather(denuncia.getDataEnchente());
+        if(clima != null){
+            denuncia.setMmChovido(clima.getDaily().getPrecipitation_sum().get(0));   
+            denuncia.setPrevisao(clima.getDaily().getPrecipitation_probability_mean().get(0));
+        }
+        denuncia.setDataDenuncia(c.get(Calendar.YEAR)+"-"+c.get(Calendar.MONTH)+"-"+c.get(Calendar.DAY_OF_MONTH));
+        denuncia.setImageURL(createURL(d.getBase64Image()));
+        denunciaRepository.save(denuncia);
+        return Denuncia.covDenunciaReturnDTO(denuncia);
+    }
+    
+    private Clima getWeather(String date){
+        RestTemplate restTemplate = new RestTemplate();
+    
+        String lat = "-23.617111";
+        String lon = "-46.590950";
+        String url =  "https://api.open-meteo.com/v1/forecast?latitude=" + lat + "&longitude=" + lon + "&daily=precipitation_sum,precipitation_probability_mean&timezone=America/Sao_Paulo&current_weather=true&start_date=" + date + "&end_date=" + date;
+    
+        ResponseEntity<Clima> response = restTemplate.getForEntity(url, Clima.class);
+        if (response.getStatusCode().is2xxSuccessful()) {
+            return response.getBody();
+        } 
+        return null;
+    }
+    
+    private String createURL(String base64Image){
+        byte[] imageBytes = Base64.getDecoder().decode(base64Image);
+        // manda byte[] + extensao do arquivo para aws
+        return "";
+    }
 }

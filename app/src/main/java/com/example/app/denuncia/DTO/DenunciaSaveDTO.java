@@ -16,5 +16,5 @@ public class DenunciaSaveDTO {
 
     private String relato;
 
-    private String imageURL;
+    private String base64Image;
 }

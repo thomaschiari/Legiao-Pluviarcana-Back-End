@@ -8,7 +8,7 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 public class DenunciaReturnDTO {
-    private String identifier;
+    private Integer identifier;
     
     private String nome;
 

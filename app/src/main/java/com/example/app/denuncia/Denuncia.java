@@ -17,8 +17,8 @@ import lombok.*;
 @Entity
 public class Denuncia {
     @Id
-    @GeneratedValue(strategy=GenerationType.AUTO)
-    private String identifier;
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
+    private Integer identifier;
     
     @NonNull
     private String nome;

@@ -15,4 +15,6 @@ public class DenunciaSaveDTO {
     private String local;
 
     private String relato;
+
+    private String imageURL;
 }

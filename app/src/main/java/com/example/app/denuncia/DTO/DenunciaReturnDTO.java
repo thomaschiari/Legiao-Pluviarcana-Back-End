@@ -18,6 +18,8 @@ public class DenunciaReturnDTO {
 
     private String relato;
 
+    private String imageURL;
+
     private Double mmChovido;
 
     private Double previsao;

@@ -28,8 +28,8 @@ public class DenunciaController {
     }
 
     @GetMapping("/{identifier}")
-    public DenunciaReturnDTO getDenuncia(@PathVariable String identifier){return denunciaService.getDenuncia(identifier);}
+    public DenunciaReturnDTO getDenuncia(@PathVariable Integer identifier){return denunciaService.getDenuncia(identifier);}
 
     @DeleteMapping("/delete/{identifier}")
-    public boolean deleteDenuncia(@PathVariable String identifier){return denunciaService.deleteDenuncia(identifier);} 
+    public boolean deleteDenuncia(@PathVariable Integer identifier){return denunciaService.deleteDenuncia(identifier);} 
 }

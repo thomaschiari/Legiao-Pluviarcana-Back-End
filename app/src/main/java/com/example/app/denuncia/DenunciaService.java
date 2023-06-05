@@ -49,12 +49,12 @@ public class DenunciaService {
     }
 
 
-    public DenunciaReturnDTO getDenuncia(String identifier){
+    public DenunciaReturnDTO getDenuncia(Integer identifier){
         return Denuncia.covDenunciaReturnDTO(denunciaRepository.findByIdentifier(identifier));
     }
 
 
-    public boolean deleteDenuncia(String identifier){
+    public boolean deleteDenuncia(Integer identifier){
         Denuncia d = denunciaRepository.findByIdentifier(identifier);
         if(d==null) return false;
         denunciaRepository.delete(d);

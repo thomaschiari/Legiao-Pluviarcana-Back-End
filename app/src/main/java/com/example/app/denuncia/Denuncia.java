@@ -1,13 +1,10 @@
 package com.example.app.denuncia;
 
-import java.util.UUID;
-
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
 
 import com.example.app.denuncia.DTO.DenunciaReturnDTO;
 import com.example.app.denuncia.DTO.DenunciaSaveDTO;
 
+import jakarta.persistence.*;
 import lombok.*;
 
 @Getter
@@ -15,15 +12,27 @@ import lombok.*;
 
 @AllArgsConstructor
 @NoArgsConstructor
+@RequiredArgsConstructor
 
-@Document(collection = "denuncias")
+@Entity
 public class Denuncia {
     @Id
+    @GeneratedValue(strategy=GenerationType.AUTO)
     private String identifier;
+    
+    @NonNull
     private String nome;
+
+    @NonNull
     private String dataEnchente;
+
+    @NonNull
     private String local;
+
+    @NonNull
     private String relato;
+
+
     private Double mmChovido;
     private Double previsao;
     private String dataDenuncia;
@@ -33,6 +42,6 @@ public class Denuncia {
     }
 
     public static Denuncia covDenuncia (DenunciaSaveDTO d){
-        return new Denuncia(UUID.randomUUID().toString(),d.getNome(),d.getDataEnchente(),d.getLocal(),d.getRelato(),null,null,null);
+        return new Denuncia(d.getNome(),d.getDataEnchente(),d.getLocal(),d.getRelato());
     }
 }

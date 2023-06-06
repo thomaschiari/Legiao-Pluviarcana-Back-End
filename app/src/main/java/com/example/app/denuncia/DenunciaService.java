@@ -1,6 +1,8 @@
 package com.example.app.denuncia;
 
 import com.example.app.clima.*;
+
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Base64;
 import java.util.Calendar;
@@ -39,15 +41,15 @@ public class DenunciaService {
     }
     
     public DenunciaReturnDTO saveDenuncia(DenunciaSaveDTO d){
-        Calendar c = Calendar.getInstance();
         Denuncia denuncia = Denuncia.covDenuncia(d);
+        LocalDate now = LocalDate.now();
     
         Clima clima = getWeather(denuncia.getDataEnchente());
         if(clima != null){
             denuncia.setMmChovido(clima.getDaily().getPrecipitation_sum().get(0));   
             denuncia.setPrevisao(clima.getDaily().getPrecipitation_probability_mean().get(0));
         }
-        denuncia.setDataDenuncia(c.get(Calendar.YEAR)+"-"+c.get(Calendar.MONTH)+"-"+c.get(Calendar.DAY_OF_MONTH));
+        denuncia.setDataDenuncia(now.toString());
         denuncia.setImageURL(createURL(d.getBase64Image()));
         denunciaRepository.save(denuncia);
         return Denuncia.covDenunciaReturnDTO(denuncia);

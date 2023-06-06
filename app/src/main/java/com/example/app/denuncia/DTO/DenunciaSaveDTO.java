@@ -19,4 +19,6 @@ public class DenunciaSaveDTO {
     private String idade;
 
     private String link;
+
+    private String mediaType;
 }

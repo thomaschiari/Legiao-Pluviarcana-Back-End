@@ -32,12 +32,12 @@ public class DenunciaPostDTO {
 
     private String link;
 
+    private String mediaType;
+
     private static final String AWS_REGION = "us-east-2";
     private static final String BUCKET_NAME = "projquebrada";
 
-    private static final String FILE_NAME = "folder/media-sucesso.jpeg";
-
-    public static void uploadBase64MediaToS3(String base64Media) throws IOException {
+    public static void uploadBase64MediaToS3(String base64Media, String FILE_NAME) throws IOException {
         byte[] mediaData = Base64.getDecoder().decode(base64Media);
 
         // Cria um arquivo temporário
@@ -64,14 +64,20 @@ public class DenunciaPostDTO {
 
     public static DenunciaSaveDTO covDenunciaSaveDTO(DenunciaPostDTO d){
     
+
+        if (d.getLink() != null){
+            return new DenunciaSaveDTO(d.getNome(),d.getDataEnchente(),d.getLocal(),d.getRelato(),d.getIdade(),d.getLink(),d.getMediaType());
+        }
+
+        String FILE_NAME = "folder/media-" + System.currentTimeMillis() + d.getMediaType();
+
         try {
-            uploadBase64MediaToS3(d.getMedia());
+            uploadBase64MediaToS3(d.getMedia(), FILE_NAME);
         } catch (IOException e) {
             e.printStackTrace();
         }
-
         String link_ = "https://projquebrada.s3.amazonaws.com/" + FILE_NAME;
 
-        return new DenunciaSaveDTO(d.getNome(),d.getDataEnchente(),d.getLocal(),d.getRelato(),d.getIdade(),link_);
+        return new DenunciaSaveDTO(d.getNome(),d.getDataEnchente(),d.getLocal(),d.getRelato(),d.getIdade(),link_,d.getMediaType());
     }
 }

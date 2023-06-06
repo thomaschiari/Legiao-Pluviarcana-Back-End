@@ -32,16 +32,19 @@ public class Denuncia {
     @NonNull
     private String relato;
 
+    @NonNull
+    private String idade;
+
 
     private Double mmChovido;
     private Double previsao;
     private String dataDenuncia;
 
     public static DenunciaReturnDTO covDenunciaReturnDTO(Denuncia d){
-        return new DenunciaReturnDTO(d.getIdentifier(),d.getNome(),d.getDataEnchente(),d.getLocal(),d.getRelato(),d.getMmChovido(),d.getPrevisao(),d.getDataDenuncia());
+        return new DenunciaReturnDTO(d.getIdentifier(),d.getNome(),d.getDataEnchente(),d.getLocal(),d.getRelato(),d.getIdade(),d.getMmChovido(),d.getPrevisao(),d.getDataDenuncia());
     }
 
     public static Denuncia covDenuncia (DenunciaSaveDTO d){
-        return new Denuncia(d.getNome(),d.getDataEnchente(),d.getLocal(),d.getRelato());
+        return new Denuncia(d.getNome(),d.getDataEnchente(),d.getLocal(),d.getRelato(),d.getIdade());
     }
 }

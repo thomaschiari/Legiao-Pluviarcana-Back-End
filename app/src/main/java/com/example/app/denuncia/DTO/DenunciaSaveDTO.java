@@ -17,4 +17,6 @@ public class DenunciaSaveDTO {
     private String relato;
 
     private String idade;
+
+    private String link;
 }

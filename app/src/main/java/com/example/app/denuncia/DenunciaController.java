@@ -23,7 +23,7 @@ public class DenunciaController {
     public List<DenunciaReturnDTO> listAll(){return denunciaService.listAll();}
 
     @PostMapping
-    public DenunciaReturnDTO saveDenuncia(@RequestBody DenunciaSaveDTO d){
+    public DenunciaReturnDTO saveDenuncia(@RequestBody DenunciaPostDTO d){
         return denunciaService.saveDenuncia(d);
     }
 

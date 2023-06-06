@@ -20,6 +20,8 @@ public class DenunciaReturnDTO {
 
     private String idade;
 
+    private String link;
+
     private Double mmChovido;
 
     private Double previsao;

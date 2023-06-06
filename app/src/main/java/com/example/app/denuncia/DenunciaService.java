@@ -26,10 +26,11 @@ public class DenunciaService {
         return denuncias;
     }
 
-    public DenunciaReturnDTO saveDenuncia(DenunciaSaveDTO d){
+    public DenunciaReturnDTO saveDenuncia(DenunciaPostDTO d){
         RestTemplate restTemplate = new RestTemplate();
         LocalDate now = LocalDate.now();
-        Denuncia denuncia = Denuncia.covDenuncia(d);
+        DenunciaSaveDTO dd = DenunciaPostDTO.covDenunciaSaveDTO(d);
+        Denuncia denuncia = Denuncia.covDenuncia(dd);
 
         String lat = "-23.617111";
         String lon = "-46.590950";

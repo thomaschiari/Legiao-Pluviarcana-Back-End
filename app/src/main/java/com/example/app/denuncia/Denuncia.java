@@ -35,16 +35,20 @@ public class Denuncia {
     @NonNull
     private String idade;
 
+    private String link;
+
+    private String mediaType;
+
 
     private Double mmChovido;
     private Double previsao;
     private String dataDenuncia;
 
     public static DenunciaReturnDTO covDenunciaReturnDTO(Denuncia d){
-        return new DenunciaReturnDTO(d.getIdentifier(),d.getNome(),d.getDataEnchente(),d.getLocal(),d.getRelato(),d.getIdade(),d.getMmChovido(),d.getPrevisao(),d.getDataDenuncia());
+        return new DenunciaReturnDTO(d.getIdentifier(),d.getNome(),d.getDataEnchente(),d.getLocal(),d.getRelato(),d.getIdade(),d.getLink(),d.getMediaType(),d.getMmChovido(),d.getPrevisao(),d.getDataDenuncia());
     }
 
     public static Denuncia covDenuncia (DenunciaSaveDTO d){
-        return new Denuncia(d.getNome(),d.getDataEnchente(),d.getLocal(),d.getRelato(),d.getIdade());
+        return new Denuncia(null,d.getNome(),d.getDataEnchente(),d.getLocal(),d.getRelato(),d.getIdade(),d.getLink(),d.getMediaType(),null,null,null);
     }
 }

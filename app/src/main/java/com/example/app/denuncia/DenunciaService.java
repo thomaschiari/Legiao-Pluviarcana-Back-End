@@ -2,7 +2,7 @@ package com.example.app.denuncia;
 
 import com.example.app.clima.*;
 import java.util.ArrayList;
-import java.util.Calendar;
+import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,10 +26,9 @@ public class DenunciaService {
         return denuncias;
     }
 
-
     public DenunciaReturnDTO saveDenuncia(DenunciaSaveDTO d){
         RestTemplate restTemplate = new RestTemplate();
-        Calendar c = Calendar.getInstance();
+        LocalDate now = LocalDate.now();
         Denuncia denuncia = Denuncia.covDenuncia(d);
 
         String lat = "-23.617111";
@@ -43,16 +42,14 @@ public class DenunciaService {
             denuncia.setMmChovido(clima.getDaily().getPrecipitation_sum().get(0));   
             denuncia.setPrevisao(clima.getDaily().getPrecipitation_probability_mean().get(0));
         }
-        denuncia.setDataDenuncia(c.get(Calendar.YEAR)+"-"+c.get(Calendar.MONTH)+"-"+c.get(Calendar.DAY_OF_MONTH));
+        denuncia.setDataDenuncia(now.toString());
         denunciaRepository.save(denuncia);
         return Denuncia.covDenunciaReturnDTO(denuncia);
     }
 
-
     public DenunciaReturnDTO getDenuncia(Integer identifier){
         return Denuncia.covDenunciaReturnDTO(denunciaRepository.findByIdentifier(identifier));
     }
-
 
     public boolean deleteDenuncia(Integer identifier){
         Denuncia d = denunciaRepository.findByIdentifier(identifier);

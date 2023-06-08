@@ -2,6 +2,7 @@ package com.example.app.denuncia;
 
 import java.util.List;
 
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,6 +16,7 @@ import com.example.app.denuncia.DTO.*;
 
 @RestController
 @RequestMapping("/denuncia")
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 public class DenunciaController {
     @Autowired
     DenunciaService denunciaService;

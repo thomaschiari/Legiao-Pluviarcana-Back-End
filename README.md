@@ -6,8 +6,10 @@ Repositório para a terceira Sprint Session do terceiro semestre do curso de Ci�
 
 - Felipe Maluli de Carvalho Dias
 - João Alfredo Cardoso Lamy
+- Leonardo Pimentel
 - Marcelo Marchetto
 - Marcelo Rabello
+- Stephany Rocha
 - Thomas Chiari Ciocchetti de Souza
 
 ### Sobre

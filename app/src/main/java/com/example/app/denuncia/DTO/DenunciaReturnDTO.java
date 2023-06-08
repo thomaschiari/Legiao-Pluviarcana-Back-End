@@ -20,6 +20,10 @@ public class DenunciaReturnDTO {
 
     private String idade;
 
+    private String link;
+
+    private String mediaType;
+
     private Double mmChovido;
 
     private Double previsao;
